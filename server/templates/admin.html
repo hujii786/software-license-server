@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Hub - Customer Software Server</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar glass-nav">
+        <a href="/admin" class="brand">
+            <div class="brand-icon">⚡</div>
+            <div class="brand-title">Software<span>Server</span> Hub</div>
+        </a>
+        <div class="user-badge">
+            <span class="role-pill admin">Master Admin</span>
+            <span id="admin-user-display" style="font-weight: 500; font-size: 0.9rem;">Admin</span>
+            <button class="btn btn-outline btn-sm" onclick="openModal('modal-admin-settings')">⚙️ Settings</button>
+            <button id="logout-btn" class="btn btn-outline btn-sm">Logout</button>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="glass stat-card">
+                <div class="stat-icon purple">👥</div>
+                <div>
+                    <div id="stat-clients" class="stat-val">0</div>
+                    <div class="stat-label">Total Clients</div>
+                </div>
+            </div>
+
+            <div class="glass stat-card">
+                <div class="stat-icon blue">💻</div>
+                <div>
+                    <div id="stat-softwares" class="stat-val">0</div>
+                    <div class="stat-label">Registered Softwares</div>
+                </div>
+            </div>
+
+            <div class="glass stat-card">
+                <div class="stat-icon green">🔑</div>
+                <div>
+                    <div id="stat-licenses" class="stat-val">0</div>
+                    <div class="stat-label">Active Licenses</div>
+                </div>
+            </div>
+
+            <div class="glass stat-card">
+                <div class="stat-icon orange">🛡️</div>
+                <div>
+                    <div id="stat-checks" class="stat-val">0</div>
+                    <div class="stat-label">Verifications Today</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="switchTab('tab-clients')">👥 Clients Management</button>
+            <button class="tab-btn" onclick="switchTab('tab-softwares')">📦 Softwares & Setups</button>
+            <button class="tab-btn" onclick="switchTab('tab-licenses')">🔑 Licenses & Anti-Piracy</button>
+            <button class="tab-btn" onclick="switchTab('tab-logs')">📜 Live Verification Logs</button>
+        </div>
+
+        <!-- TAB 1: CLIENTS -->
+        <div id="tab-clients" class="tab-content active">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Customers / Clients</h2>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Tamam registered customers aur unke login accounts</p>
+                </div>
+                <button class="btn btn-primary" onclick="openModal('modal-add-client')">➕ Add New Client</button>
+            </div>
+
+            <div class="glass table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer Name</th>
+                            <th>Business / Company</th>
+                            <th>Username</th>
+                            <th>Phone / WhatsApp</th>
+                            <th>Active Apps</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clients-table-body">
+                        <tr><td colspan="8" style="text-align: center; color: var(--text-muted);">Loading clients...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB 2: SOFTWARES -->
+        <div id="tab-softwares" class="tab-content">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Softwares Catalog</h2>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Aapke banaye hue Python apps, versions aur unke downloadable setup files</p>
+                </div>
+                <button class="btn btn-primary" onclick="openModal('modal-add-software')">➕ Register New Software</button>
+            </div>
+
+            <div class="glass table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>App Code</th>
+                            <th>Software Title</th>
+                            <th>Version</th>
+                            <th>File / Source</th>
+                            <th>Assigned Clients</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="softwares-table-body">
+                        <tr><td colspan="7" style="text-align: center; color: var(--text-muted);">Loading softwares...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB 3: LICENSES -->
+        <div id="tab-licenses" class="tab-content">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">License Keys & Hardware Locks</h2>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Har client ki license key, machine binding aur activation control</p>
+                </div>
+                <button class="btn btn-primary" onclick="openModal('modal-add-license')">⚡ Generate License Key</button>
+            </div>
+
+            <div class="glass table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>License Key</th>
+                            <th>Client</th>
+                            <th>Software</th>
+                            <th>Status</th>
+                            <th>Expiry</th>
+                            <th>Locked Machine ID</th>
+                            <th>Last Check</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="licenses-table-body">
+                        <tr><td colspan="8" style="text-align: center; color: var(--text-muted);">Loading licenses...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB 4: LOGS -->
+        <div id="tab-logs" class="tab-content">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Live Offline Verification Logs</h2>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Jab bhi customer ka computer server se license verify karta hai</p>
+                </div>
+                <button class="btn btn-outline btn-sm" onclick="loadLogs()">🔄 Refresh Logs</button>
+            </div>
+
+            <div class="glass table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>App Code</th>
+                            <th>License Key</th>
+                            <th>Client IP</th>
+                            <th>Machine ID</th>
+                            <th>Result</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logs-table-body">
+                        <tr><td colspan="7" style="text-align: center; color: var(--text-muted);">Loading logs...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL 1: ADD CLIENT -->
+    <div id="modal-add-client" class="modal-overlay">
+        <div class="glass modal-card">
+            <div class="modal-header">
+                <h3>Add New Customer Account</h3>
+                <button class="modal-close" onclick="closeModal('modal-add-client')">&times;</button>
+            </div>
+            <form id="form-add-client">
+                <div class="form-group">
+                    <label class="form-label">Customer Full Name *</label>
+                    <input type="text" id="client-name" class="form-input" placeholder="e.g. Ali Ahmed" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Business / Shop / Company Name</label>
+                    <input type="text" id="client-company" class="form-input" placeholder="e.g. Al-Madina Pharmacy">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Phone / WhatsApp Number</label>
+                    <input type="text" id="client-phone" class="form-input" placeholder="e.g. 03001234567">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">Portal Username *</label>
+                        <input type="text" id="client-username" class="form-input" placeholder="e.g. ali_pharmacy" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Portal Password *</label>
+                        <input type="password" id="client-password" class="form-input" placeholder="Password" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Create Customer</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: ADD SOFTWARE -->
+    <div id="modal-add-software" class="modal-overlay">
+        <div class="glass modal-card">
+            <div class="modal-header">
+                <h3>Register Software</h3>
+                <button class="modal-close" onclick="closeModal('modal-add-software')">&times;</button>
+            </div>
+            <form id="form-add-software">
+                <div class="form-group">
+                    <label class="form-label">Software Title *</label>
+                    <input type="text" id="soft-title" class="form-input" placeholder="e.g. Retail POS System" required>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">Unique App Code * (Python code identifier)</label>
+                        <input type="text" id="soft-code" class="form-input" placeholder="e.g. retail_pos" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Version</label>
+                        <input type="text" id="soft-version" class="form-input" value="1.0.0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description / Features</label>
+                    <textarea id="soft-desc" class="form-textarea" rows="2" placeholder="Software details and features"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Download Setup File (.exe / .zip / installer) [Optional]</label>
+                    <input type="file" id="soft-file" class="form-input" accept=".exe,.zip,.rar,.msi,.tar.gz">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Ya External Download Link (Google Drive / Direct URL)</label>
+                    <input type="url" id="soft-url" class="form-input" placeholder="https://drive.google.com/...">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Save Software</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 3: GENERATE LICENSE -->
+    <div id="modal-add-license" class="modal-overlay">
+        <div class="glass modal-card">
+            <div class="modal-header">
+                <h3>Generate License Key for Client</h3>
+                <button class="modal-close" onclick="closeModal('modal-add-license')">&times;</button>
+            </div>
+            <form id="form-add-license">
+                <div class="form-group">
+                    <label class="form-label">Select Client *</label>
+                    <select id="lic-client" class="form-select" required>
+                        <option value="">Choose a customer...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Select Software *</label>
+                    <select id="lic-software" class="form-select" required>
+                        <option value="">Choose software...</option>
+                    </select>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">Expiry Date</label>
+                        <input type="date" id="lic-expiry" class="form-input">
+                        <small style="color: var(--text-muted); font-size: 0.75rem;">Leave empty for Lifetime</small>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Hardware Machine Lock</label>
+                        <select id="lic-hardware-lock" class="form-select">
+                            <option value="1">Enabled (Lock to 1st PC)</option>
+                            <option value="0">Disabled (Run on any PC)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Notes / Reference</label>
+                    <input type="text" id="lic-notes" class="form-input" placeholder="e.g. Annual Subscription Paid">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Generate License</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 4: ADMIN SETTINGS -->
+    <div id="modal-admin-settings" class="modal-overlay">
+        <div class="glass modal-card">
+            <div class="modal-header">
+                <h3>⚙️ Admin Account Settings</h3>
+                <button class="modal-close" onclick="closeModal('modal-admin-settings')">&times;</button>
+            </div>
+            <form id="form-admin-settings">
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.25rem;">
+                    Yahan se aap apna Admin Password tabdeel kar sakte hain.
+                </p>
+                <div class="form-group">
+                    <label class="form-label">Purana (Current) Password *</label>
+                    <input type="password" id="admin-old-pass" class="form-input" placeholder="Purana password darj karein" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Naya Password *</label>
+                    <input type="password" id="admin-new-pass" class="form-input" placeholder="Naya mazboot password" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Confirm Naya Password *</label>
+                    <input type="password" id="admin-confirm-pass" class="form-input" placeholder="Dobara naya password enter karein" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Update Admin Password</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 5: RESET CLIENT PASSWORD -->
+    <div id="modal-client-password" class="modal-overlay">
+        <div class="glass modal-card">
+            <div class="modal-header">
+                <h3>🔑 Reset Customer Password</h3>
+                <button class="modal-close" onclick="closeModal('modal-client-password')">&times;</button>
+            </div>
+            <form id="form-client-password">
+                <input type="hidden" id="reset-client-id">
+                <p style="color: #38bdf8; font-size: 0.9rem; margin-bottom: 1rem;" id="reset-client-name-display"></p>
+
+                <!-- Current Password Display -->
+                <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.85rem 1rem; margin-bottom: 1.25rem;">
+                    <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; margin-bottom: 0.4rem;">
+                        Current Password (Purana Password):
+                    </div>
+                    <div id="client-current-pass-display" style="font-family: 'Consolas', monospace; font-size: 1rem; font-weight: 700; color: #fbbf24; letter-spacing: 1px;">
+                        —
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Naya Password *</label>
+                    <input type="text" id="client-new-pass" class="form-input" placeholder="Naya password darj karein" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Save New Password</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Downloads & License Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar glass-nav">
+        <a href="/portal" class="brand">
+            <div class="brand-icon">⚡</div>
+            <div class="brand-title">Customer<span>Portal</span></div>
+        </a>
+        <div class="user-badge">
+            <span class="role-pill client">Client Area</span>
+            <span id="client-user-display" style="font-weight: 500; font-size: 0.9rem;">Customer</span>
+            <button id="logout-btn" class="btn btn-outline btn-sm">Sign Out</button>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        
+        <!-- Welcome Hero Banner -->
+        <div class="glass" style="padding: 2rem 2.5rem; margin-bottom: 2.5rem; position: relative; overflow: hidden;">
+            <div style="position: relative; z-index: 2;">
+                <h1 style="font-size: 1.8rem; margin-bottom: 0.5rem;">
+                    Khush Amdeed, <span id="welcome-name" style="color: #818cf8;">Customer</span>! 👋
+                </h1>
+                <p id="welcome-company" style="color: var(--text-muted); font-size: 1rem; max-width: 600px;">
+                    Yahan aapke tamam khareeday hue Python offline softwares, unke latest setup files, aur activation license keys mojood hain.
+                </p>
+            </div>
+            <div style="position: absolute; right: 2rem; top: 50%; transform: translateY(-50%); font-size: 4rem; opacity: 0.15; pointer-events: none;">
+                🚀
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="section-header">
+            <div>
+                <h2 class="section-title">My Registered Softwares</h2>
+                <p style="color: var(--text-muted); font-size: 0.85rem;">Aapke liye active kiye gaye softwares ki fehrist</p>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="loadMyApps()">🔄 Refresh</button>
+        </div>
+
+        <!-- Apps Grid -->
+        <div id="apps-container" class="apps-grid">
+            <div class="glass" style="padding: 3rem; text-align: center; grid-column: 1 / -1; color: var(--text-muted);">
+                Aapke softwares load ho rahe hain...
+            </div>
+        </div>
+
+        <!-- Quick Help Guide -->
+        <div class="glass" style="margin-top: 3rem; padding: 2rem;">
+            <h3 style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; font-size: 1.15rem;">
+                💡 Software Install & Activate Karne Ka Asaan Tareeqa:
+            </h3>
+            <ol style="margin-left: 1.5rem; line-height: 1.8; color: var(--text-muted); font-size: 0.95rem;">
+                <li>Uper diye gaye software card se <strong>"Download Setup"</strong> button par click karke installer download karein.</li>
+                <li>Setup ko apne computer par install ya extract karein.</li>
+                <li>Software ko pehli dafa launch karte waqt apni <strong>License Key</strong> (jo card par di gayi hai) copy karke enter karein.</li>
+                <li>License verify hone ke baad software automatically aapke computer par chalne lagega!</li>
+            </ol>
+        </div>
+
+    </div>
+
+    <script src="/static/js/client.js"></script>
+</body>
+</html>
